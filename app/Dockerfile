@@ -13,6 +13,10 @@ ENV GO111MODULE=on
 # cgo disabled to allow binary to be self-contained (i.e dependencies)
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags="-w -s" -o golang-test .
 
-ENTRYPOINT ["/app/golang-test"]
+# Second stage empty base image
+FROM scratch
 
 EXPOSE 8000
+
+
+ENTRYPOINT ["/app/golang-test"]
