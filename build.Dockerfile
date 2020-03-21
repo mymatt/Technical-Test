@@ -29,6 +29,15 @@ RUN adduser \
     --uid "${UID}" \
     "${USER}"
 
+WORKDIR /go/
+
+COPY . .
+
+WORKDIR /go/goapi
+
+# install github.com/gorilla/mux
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go install -v
+
 # Import user and group from the builder stage
 COPY --from=builder /etc/passwd /etc/passwd
 COPY --from=builder /etc/group /etc/group
