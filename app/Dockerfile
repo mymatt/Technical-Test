@@ -10,7 +10,8 @@ ADD ./ /app
 
 ENV GO111MODULE=on
 
-RUN go build -o golang-test .
+# cgo disabled to allow binary to be self-contained (i.e dependencies)
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags="-w -s" -o golang-test .
 
 ENTRYPOINT ["/app/golang-test"]
 
