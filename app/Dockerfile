@@ -1,14 +1,14 @@
 FROM golang:alpine AS builder
 
-ENV GO111MODULE=on
-
 WORKDIR /app
+
+RUN apk update --no-cache && \
+    apk add git && \
+    rm -rf /var/cache/apk/*
 
 ADD ./ /app
 
-RUN apk update --no-cache
-
-RUN apk add git
+ENV GO111MODULE=on
 
 RUN go build -o golang-test .
 
