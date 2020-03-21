@@ -18,5 +18,8 @@ FROM scratch
 
 EXPOSE 8000
 
+# Copy binary from builder stage
+WORKDIR /app
+COPY --from=builder /app/golang-test .
 
 ENTRYPOINT ["/app/golang-test"]
