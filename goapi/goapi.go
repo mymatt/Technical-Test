@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"log"
 	"net/http"
 	"os"
 )
@@ -55,4 +56,11 @@ func getVersion(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 	w.Write(appJSON)
+}
+
+func main() {
+	router := mux.NewRouter()
+	router.HandleFunc("/", getHome).Methods(http.MethodGet)
+	router.HandleFunc("/version", getVersion).Methods(http.MethodGet)
+	log.Fatal(http.ListenAndServe(":8080", router))
 }
