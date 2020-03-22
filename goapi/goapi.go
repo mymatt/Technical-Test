@@ -5,6 +5,8 @@ import (
 	"log"
 	"net/http"
 	"os"
+
+	"github.com/gorilla/mux"
 )
 
 // Myapp json return for /version endpoint
