@@ -27,8 +27,6 @@ jobs:
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
         - docker build -t $DOCKER_USERNAME/$REPO:${TRAVIS_COMMIT} --build-arg vers=$(jq '.version' metadata.json) --build-arg desc="$(jq '.description' metadata.json)" --build-arg sha=${TRAVIS_COMMIT} -f build.Dockerfile .
         - docker image ls
-        - docker tag $DOCKER_USERNAME/$REPO:${TRAVIS_COMMIT} $DOCKER_USERNAME/$REPO:$(jq -r '.version' metadata.json)
-        # - docker tag $REPO:${TRAVIS_COMMIT} $DOCKER_USERNAME/$REPO:${TRAVIS_COMMIT}
         - docker push $DOCKER_USERNAME/$REPO:${TRAVIS_COMMIT}
 
     - stage: Run
