@@ -26,15 +26,13 @@ go build -o golang-test .
 ./golang-test
 ```
 - Using postman to test the API, the below tests show the results for each of the endpoints /, /go, and /opt
+
 **endpoint /**
 ![Image /](https://github.com/mymatt/Technical-Test/blob/master/images/Post1.png)
-
 **endpoint /go**
 ![Image /go](https://github.com/mymatt/Technical-Test/blob/master/images/Post2.png)
-
 **endpoint /opt**
 ![Image /opt](https://github.com/mymatt/Technical-Test/blob/master/images/Post3.png)
-
 ### Dockerfile Testing
 
 - Lets test that the application can be successfully run in a docker container on our local machine

@@ -1,7 +1,7 @@
 ## Test 2
 
 - Test 2 includes all repo files, excluding the **app** folder
-- The **goapi** contains the golang api and test files
+- The **goapi** folder contains the golang api and test files
 
 ### Pre-Requisites
 - github account setup
@@ -54,21 +54,6 @@ REPO = Use Dockerhub Repo name (e.g technical-test)
 
 ![Image env](https://github.com/mymatt/Technical-Test/blob/master/images/TravisEnvVar.png)
 
-## To Begin
-- commit to git on master branch
-- To view logs go to Travis repo, select "Running" on left task bar, and choose a running job
-- The output for Build stage will be
-
-![Image Build](https://github.com/mymatt/Technical-Test/blob/master/images/Build.png)
-
-- Once the pipeline has finished, the logs will show the return values from requests to / and /version
-
-![Image Last](https://github.com/mymatt/Technical-Test/blob/master/images/Last.png)
-
-- The newly created build will be visible in your dockerhub repository
-
-![Image Dockerhub](https://github.com/mymatt/Technical-Test/blob/master/images/DockerhubRepo.png)
-
 ## Golang API
 - The golang API uses gorilla mux, which is used to match requests to specified endpoints. In this case we are only using the GET http method
 - It will be installed during the "go install" command during the build phase within the Dockerfile
@@ -103,6 +88,10 @@ version, exists := os.LookupEnv("VERS")
 
 - The lastcommitsha is also returned by the /version endpoint. This is achieved using the Travis Default Environmental Variables. In this case: ${TRAVIS_COMMIT}
 
+## To Begin
+- commit to git on master branch
+- To view logs go to Travis repo, select "Running" on left task bar, and choose a running job
+
 ## Testing - Golang Linting
 - golint is installed and run during the first travis stage to provide linting of our golang file
 
@@ -120,6 +109,20 @@ version, exists := os.LookupEnv("VERS")
 ```
 - the output of this stage is
 ![Image testing](https://github.com/mymatt/Technical-Test/blob/master/images/Testing.png)
+
+## Build Stage
+- The output for the Build stage will be
+
+![Image Build](https://github.com/mymatt/Technical-Test/blob/master/images/Build.png)
+
+- The newly created build will be visible in your dockerhub repository
+
+![Image Dockerhub](https://github.com/mymatt/Technical-Test/blob/master/images/DockerhubRepo.png)
+
+## Run Stage
+- The run stage downloads our new image from dockerhub and runs the container. The logs will show the return values from requests to / and /version
+
+![Image Last](https://github.com/mymatt/Technical-Test/blob/master/images/Last.png)
 
 ## Security Non-privileged User
 - We need to thwart attacks to the Docker host using root access.
