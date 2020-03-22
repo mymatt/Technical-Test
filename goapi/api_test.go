@@ -19,10 +19,10 @@ type Version struct {
 	Lastcommitsha string
 }
 
-var testHello = "Hello World!"
-var testVersion = "1.0.0"
-var testDescription = "anz technical challenge"
-var testLastcommitsha = "ttn5int5ln34r34"
+var helloTest = "Hello World!"
+var versionTest = "1.0.0"
+var descriptionTest = "anz technical challenge"
+var lastcommitshaTest = "ttn5int5ln34r34"
 
 func TestHome(t *testing.T) {
 	req, err := http.NewRequest("GET", "/", nil)
@@ -43,15 +43,15 @@ func TestHome(t *testing.T) {
 			status, http.StatusOK)
 	}
 
-	if status := rec.Body.String(); status == testHello {
+	if status := rec.Body.String(); status == helloTest {
 		fmt.Printf("-> Test getHome() Body Passed \nReceived correct body: %v \n", status)
 	} else {
 		t.Errorf("Received body: %v expected body was %v",
-			status, testHello)
+			status, helloTest)
 	}
 }
 
-func testVersion(t *testing.T) {
+func TestVersion(t *testing.T) {
 	req, err := http.NewRequest("GET", "/version", nil)
 	if err != nil {
 		t.Fatal(err)
@@ -77,27 +77,27 @@ func testVersion(t *testing.T) {
 	}
 
 	// Test /version endpoint: Version
-	if version := res.Myapplication[0].Version; version == testVersion {
+	if version := res.Myapplication[0].Version; version == versionTest {
 		fmt.Printf("-> Test Version Passed \nReceived correct version: %v \n", version)
 	} else {
 		t.Errorf("-> Received version: %v expected version was %v",
-			version, testVersion)
+			version, versionTest)
 	}
 
 	// Test /version endpoint: Description
-	if description := res.Myapplication[0].Description; description == testDescription {
+	if description := res.Myapplication[0].Description; description == descriptionTest {
 		fmt.Printf("-> Test Description Passed \nReceived correct description: %v \n", description)
 	} else {
 		t.Errorf("-> Received description: %v expected description was %v",
-			description, testDescription)
+			description, descriptionTest)
 	}
 
 	// Test /version endpoint: Lastcommitsha
-	// if lastcommitsha := res.Myapplication[0].Lastcommitsha; lastcommitsha == testLastcommitsha {
+	// if lastcommitsha := res.Myapplication[0].Lastcommitsha; lastcommitsha == lastcommitshaTest {
 	// 	fmt.Printf("-> Test Lastcommitsha Passed \nReceived correct lastcommitsha: %v \n", lastcommitsha)
 	// } else {
 	// 	t.Errorf("-> Received Lastcommitsha: %v expected Lastcommitsha was %v",
-	// 		lastcommitsha, testLastcommitsha)
+	// 		lastcommitsha, lastcommitshaTest)
 	// }
 
 }
