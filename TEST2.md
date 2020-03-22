@@ -97,10 +97,10 @@ REPO = Use Dockerhub Repo name (e.g technical-test)
 - The /version endpoint returns "description" & "version" from a metadata.json file using jq (pre-installed on travis VM's)
 - During the docker build stage of the Travis pipeline we pass the jq outputs to the docker build process as arguments
 ```
---build-arg vers=$(jq '.version' metadata.json)
---build-arg desc="$(jq '.description' metadata.json)"
+--build-arg vers=$(jq -r '.version' metadata.json)
+--build-arg desc="$(jq -r '.description' metadata.json)"
 ```
-- In the dockerfile we then create environmental variables
+- In the dockerfile we then create environmental variables, during the last stage of the multi-stage build (with scratch image)
 ```
 ARG vers
 ENV VERS=$vers
