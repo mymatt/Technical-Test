@@ -21,6 +21,7 @@ jobs:
     - stage: Testing - Linting / Unit Tests
       script:
         - golint goapi
+        - go test -v
 
     - stage: Build
       script:
