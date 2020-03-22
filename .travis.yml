@@ -4,7 +4,9 @@ dist: bionic
 # specify language used
 language: go
 
-go: "1.14" 
+env: GO111MODULE=on
+
+go: "1.14"
 
 # specify use of docker
 services:
