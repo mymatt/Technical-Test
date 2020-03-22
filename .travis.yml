@@ -21,11 +21,7 @@ jobs:
     - stage: Build
       script:
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-        - docker build -t $REPO:${TRAVIS_COMMIT} \
-        --build-arg vers=$(jq '.version' metadata.json) \
-        --build-arg desc="$(jq '.description' metadata.json)" \
-        --build-arg sha=${TRAVIS_COMMIT} \
-        -f build.Dockerfile .
+        - docker build -t $REPO:${TRAVIS_COMMIT} --build-arg vers=$(jq '.version' metadata.json) --build-arg desc="$(jq '.description' metadata.json)" --build-arg sha=${TRAVIS_COMMIT} -f build.Dockerfile .
         - docker image ls
         - docker tag $REPO:${TRAVIS_COMMIT} $DOCKER_USERNAME/$REPO:$(jq '.version' metadata.json)
         - docker tag $REPO:${TRAVIS_COMMIT} $DOCKER_USERNAME/$REPO:${TRAVIS_COMMIT}
