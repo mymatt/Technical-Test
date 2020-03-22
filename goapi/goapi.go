@@ -1,6 +1,10 @@
 package main
 
-import "net/http"
+import (
+	"encoding/json"
+	"net/http"
+	"os"
+)
 
 // Myapp json return for /version endpoint
 type Myapp struct {
@@ -36,3 +40,19 @@ func getVersion(w http.ResponseWriter, r *http.Request) {
 	if !exists {
 		panic(exists)
 	}
+
+	myapp := &Myapp{
+		App: []Appdetails{
+			{Version: version, Description: description, Lastcommitsha: shacommit},
+		},
+	}
+
+	appJSON, err := json.Marshal(myapp)
+	if err != nil {
+		panic(err)
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	w.Write(appJSON)
+}
