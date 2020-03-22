@@ -142,6 +142,6 @@ docker history multi:multi
 
 ### Optimizing Dockerfile
 
-- In addition to multi-stage builds some general dockerfile optimization techniques are
+- In addition to multi-stage builds some general dockerfile optimization techniques are:
 1) Combine run commands using && to minimize layers
 2) Keep stable instructions at top of dockerfile and place additions at the bottom
