@@ -19,7 +19,7 @@ before_install:
 jobs:
   include:
     - stage: Testing - Linting / Unit Tests
-    # for unit testing, need to simulate environment variables passed to container
+    # for unit testing, need to simulate environment containing variables passed to container
       env:
         - GO111MODULE=on
         - VERS=$(jq -r '.version' metadata.json)
