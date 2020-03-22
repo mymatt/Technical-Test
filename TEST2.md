@@ -146,8 +146,6 @@ expose 8080
 
 ### Versioning
 - Fixed tags are used for immutability. The tags are the HASH for each commit. This is to avoid the scenario of pushing new versions to the same tags
-- In addition, a tag is assigned to the image which indicates the current version of the application. It is derived from the metadata.json file using jq. Therefore the version key in the metadata.json file is required to be updated for each commit to master
-- The versioning system used is Semantic which follows: Major.Minor.Patch
 - Travis provides an Environment Variable for the hash of each commit: ${TRAVIS_COMMIT}
 - In addition to using the Travis Default Environmental Variables, we can use the following git command to retrieve the hash for the last commit
 ```
