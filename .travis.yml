@@ -20,7 +20,7 @@ jobs:
   include:
     - stage: Testing - Linting / Unit Tests
       script:
-        - golint goapi.go
+        - golint goapi
 
     - stage: Build
       script:
