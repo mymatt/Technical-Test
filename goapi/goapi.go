@@ -18,3 +18,21 @@ func getHome(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	w.Write([]byte("Hello World!"))
 }
+
+// endpoint /version return
+func getVersion(w http.ResponseWriter, r *http.Request) {
+
+	version, exists := os.LookupEnv("VERS")
+	if !exists {
+		panic(exists)
+	}
+
+	description, exists := os.LookupEnv("DESC")
+	if !exists {
+		panic(exists)
+	}
+
+	shacommit, exists := os.LookupEnv("SHA")
+	if !exists {
+		panic(exists)
+	}
