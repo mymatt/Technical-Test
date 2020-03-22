@@ -1,7 +1,7 @@
 ## Test 2
 
 - Test 2 includes all repo files, excluding the **app** folder
-- The **goapi** contains the golang api files
+- The **goapi** contains the golang api and test files
 
 ### Pre-Requisites
 - github account setup
@@ -84,15 +84,6 @@ REPO = Use Dockerhub Repo name (e.g technical-test)
 **View Response from /version endpoint**
 ![Image /version](https://github.com/mymatt/Technical-Test/blob/master/images/Rest2.png)
 
-## Testing - Golang Linting
-- golint is installed and run during the first travis stage to provide linting of our golang file
-
-## Testing - Golang Unit Testing
-- The unit tests for each endpoint test for a http status of **200 OK**
-- We use unmarshal to parse the JSON response according to a struct that matches the expected JSON structure
-- We can then extract the version, description and lastcommitsha data
-- The unit tests then attempt to match test strings for the expected values
-
 ## Version Endpoint
 - The /version endpoint returns "description" & "version" from a metadata.json file using jq (pre-installed on travis VM's)
 - During the docker build stage of the Travis pipeline we pass the jq outputs to the docker build process as arguments
@@ -112,6 +103,24 @@ version, exists := os.LookupEnv("VERS")
 
 - The lastcommitsha is also returned by the /version endpoint. This is achieved using the Travis Default Environmental Variables. In this case: ${TRAVIS_COMMIT}
 
+## Testing - Golang Linting
+- golint is installed and run during the first travis stage to provide linting of our golang file
+
+## Testing - Golang Unit Testing
+- The unit tests for each endpoint test for a http status of **200 OK**
+- We use unmarshal to parse the JSON response according to a struct that matches the expected JSON structure
+- We can then extract the version, description and lastcommitsha data
+- The unit tests then attempt to match test strings for the expected values
+- to simulate the container environment that runs our golang api application, the unit testing stage has the following env variables assigned
+```
+- GO111MODULE=on
+- VERS=$(jq -r '.version' metadata.json)
+- DESC="$(jq -r '.description' metadata.json)"
+- SHA=${TRAVIS_COMMIT}
+```
+- the output of this stage is
+![Image testing](https://github.com/mymatt/Technical-Test/blob/master/images/Testing.png)
+
 ## Security Non-privileged User
 - We need to thwart attacks to the Docker host using root access.
 This can be achieved by launching the container with a non-privileged user.
@@ -129,7 +138,7 @@ RUN adduser \
     --uid "${UID}" \
     "${USER}"
 ```
-- In second stage, which is built on an “empty” scratch image, we copy the users and groups from our first builder stage
+- In the second stage, which is built on an “empty” scratch image, we copy the users and groups from our first builder stage
 ```
 COPY --from=builder /etc/passwd /etc/passwd
 COPY --from=builder /etc/group /etc/group
@@ -142,12 +151,11 @@ USER usergo:usergo
 ```
 expose 8080
 ```
-- We could go even further with container isolation by creating user namespaces. A new user is created with a range of UIDs, in the /etc/subuid, /etc/subgid
 
 ### Versioning
 - Fixed tags are used for immutability. The tags are the HASH for each commit. This is to avoid the scenario of pushing new versions to the same tags
 - Travis provides an Environment Variable for the hash of each commit: ${TRAVIS_COMMIT}
-- In addition to using the Travis Default Environmental Variables, we can use the following git command to retrieve the hash for the last commit
+- In addition, we can use the following git command to retrieve the hash for the last commit
 ```
 git log -1 --pretty=%H
 ```

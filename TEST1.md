@@ -66,7 +66,7 @@ docker exec -ti test sh
 apk add curl
 curl localhost:8000
 ```
-**Hello, world.**
+Returns **Hello, world.**
 
 - on examining the code for the server, we can see that it is being run with address 127.0.0.1 which allows access to port 8000 only from the localhost, that is, within the container
 ```
@@ -90,7 +90,7 @@ docker rmi test:test
 ```
 curl localhost:8000
 ```
-**Hello, world.**
+Returns **Hello, world.**
 
 ### Multi-Stage Build
 
