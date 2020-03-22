@@ -13,8 +13,6 @@ ENV SHA=$sha
 
 ENV GOPATH=/go
 
-ENV PATH="$PATH:/go/bin"
-
 # Setup New User env variables
 ENV USER=usergo
 ENV UID=10001
@@ -39,6 +37,8 @@ WORKDIR /go/goapi
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go install -v
 
 FROM scratch
+
+ENV PATH="$PATH:/go/bin"
 
 EXPOSE 8080
 
