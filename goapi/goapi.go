@@ -14,6 +14,7 @@ type Myapp struct {
 	App []Appdetails `json:"myapplication"`
 }
 
+// Appdetails json nested struct return for /version endpoint
 type Appdetails struct {
 	Version       string `json:"version"`
 	Description   string `json:"description"`
