@@ -143,3 +143,4 @@ docker history multi:multi
 - In addition to multi-stage builds some general dockerfile optimization techniques are:
 1) Combine run commands using && to minimize layers
 2) Keep stable instructions at top of dockerfile and place additions at the bottom
+3) Using go mod download command, which takes go.mod and go.sum files and downloads the dependencies from them instead of using the source code. These files won't be changed that often so we can cache them earlier in the build process
