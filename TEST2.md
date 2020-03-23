@@ -1,6 +1,6 @@
 ## Test 2
 
-- Test 2 includes all repo files, excluding the **app** folder
+- Test 2 includes all repo files, excluding the **TEST1** folder
 - The **goapi** folder contains the golang api and test files
 
 ### Pre-Requisites
