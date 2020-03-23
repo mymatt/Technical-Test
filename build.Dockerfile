@@ -19,6 +19,12 @@ RUN adduser \
 
 WORKDIR /go/
 
+COPY go.mod /go
+COPY go.sum /go
+
+# Get dependancies - will be cached if we don't change mod/sum
+RUN go mod download
+
 COPY . .
 
 WORKDIR /go/goapi
