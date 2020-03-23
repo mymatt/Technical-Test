@@ -1,6 +1,6 @@
 ## Test 1
 
-- the files for Test 1 are located in the **app** folder
+- the files for Test 1 are located in the **TEST1** folder
 
 ### Pre-Requisites
 - golang installation
