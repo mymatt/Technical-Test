@@ -97,7 +97,7 @@ Returns **Hello, world.**
 - To evaluate the effectiveness of multi-stage builds, lets asses the size and layers of an image build not using multi-staging
 - Lets check the size created with the current dockerfile
 ```
-docker images test:test --format "{{.
+docker images test:test --format "{{.Repository}}:{{.Tag}} {{.Size}}"
 ```
 ![Image Size1](https://github.com/mymatt/Technical-Test/blob/master/images/Size1.png)  
 - We can also view the layers and their sizes
